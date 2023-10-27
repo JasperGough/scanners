@@ -20,11 +20,10 @@ public class ScannerReadCSVFile
         scanner.useDelimiter("\n");
 
         // Continue while there's still data in the file to be read
+        int i = 1;
         while (scanner.hasNext()) {
             // Read the next line of the file
             String line = scanner.nextLine();
-            System.out.println(line);
-
             // line now contains a line of comma-separated numbers
             // representing 10 test scores for each class.
             //
@@ -46,9 +45,24 @@ public class ScannerReadCSVFile
             // Pay attention to the spacing on your output
             //
             // Write your code in the space below!
-            Scanner separate = new Scanner(line).useDelimiter(",|\n");
-            int value = separate.nextInt();
-            System.out.println(value);
+            if (i != 1) {
+                Scanner separate = new Scanner(line).useDelimiter(",|\n");
+                int classnum = 0;
+                int gradenum = 0;
+                int avg = 0;
+                boolean setclass = false;
+                while (separate.hasNextInt()) {
+                    if (setclass == false) {
+                        classnum = separate.nextInt();
+                        setclass = true;
+                    } else {
+                        avg += separate.nextInt();
+                        gradenum++;  
+                    }
+                }
+                System.out.println(classnum + ": " + avg/gradenum);
+            }
+            i++;
         }
     }
 
